@@ -1,4 +1,4 @@
-xxpackage info.lockhead;
+package info.lockhead;
 
 import java.util.Arrays;
 import java.util.HashMap;
