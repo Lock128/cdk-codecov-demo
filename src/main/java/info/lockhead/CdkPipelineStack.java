@@ -20,25 +20,24 @@ import software.amazon.awscdk.services.codepipeline.Artifact;
 import software.constructs.Construct;
 
 public class CdkPipelineStack extends Stack {
-    public CdkPipelineStack(final Construct parent, final String id,final String branch) {
-        this(parent, id, branch, null);
+    public CdkPipelineStack(final Construct parent, final String id) {
+        this(parent, id, null);
     }
 
-    public CdkPipelineStack(final Construct parent, final String id, final String branch, final StackProps props) {
+    public CdkPipelineStack(final Construct parent, final String id, final StackProps props) {
         super(parent, id, props);
         
         String connectionArn = "arn:aws:codestar-connections:eu-central-1:xxx:connection/yyyy-aaaaaa-bbbbbb-ccccc-zzzzzzzzzzzz";
         Artifact sourceBuildOutput = new Artifact();
         
-		//branch = "Johannes-Koch/added-india-and-argentina-1653224899205";
-        //branch = "main";
+		
         // Pipeline code goes here
         // The basic pipeline declaration. This sets the initial structure
         // of our pipeline
-        final CodePipeline pipeline = CodePipeline.Builder.create(this, getCodepipelineName(branch))
-                .pipelineName(getCodepipelineName(branch))
+        final CodePipeline pipeline = CodePipeline.Builder.create(this, "CodecovPipeline")
+                .pipelineName("CodecovPipeline")
                 .synth(CodeBuildStep.Builder.create("SynthStep")
-                        .input(CodePipelineSource.connection("johannes_koch/cdk-codecov-demo", branch, ConnectionSourceOptions.builder().connectionArn(connectionArn).build()))
+                        .input(CodePipelineSource.connection("johannes_koch/cdk-codecov-demo", "main", ConnectionSourceOptions.builder().connectionArn(connectionArn).build()))
                         .installCommands(List.of(
                                 "npm install -g aws-cdk"   // Commands to run before build
                         ))
@@ -103,12 +102,4 @@ public class CdkPipelineStack extends Stack {
 		
 		return lambdaBuild;
 	}
-    
-    private String getCodepipelineName(String branch) {
-      String string = "CodecovPipeline"+branch.replace("-", "").replace("/", "");
-      if (string.length()>50) {
-    	  string = string.substring(0, 50);
-      }
-	return string;
-    }
 }

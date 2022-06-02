@@ -15,3 +15,7 @@ test('PaperSizeInGermany', () => {
             expect.assertions(1);
             expect(PaperSize.handler({Country: "India"})).resolves.toEqual("Unknown");
             });
+            test('PaperSizeInArgentina', () => {
+                expect.assertions(1);
+                expect(PaperSize.handler({Country: "Argentina"})).resolves.toEqual("A4");
+                });
