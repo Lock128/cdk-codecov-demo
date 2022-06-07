@@ -38,7 +38,7 @@ public class CdkPipelineStack extends Stack {
         final CodePipeline pipeline = CodePipeline.Builder.create(this, getCodepipelineName(branch))
                 .pipelineName(getCodepipelineName(branch))
                 .synth(CodeBuildStep.Builder.create("SynthStep")
-                        .input(CodePipelineSource.connection("lock128/cdk-codecov-demo", branch, ConnectionSourceOptions.builder().connectionArn(connectionArn).build()))
+                        .input(CodePipelineSource.connection("Lock128/cdk-codecov-demo", branch, ConnectionSourceOptions.builder().connectionArn(connectionArn).build()))
                         .installCommands(List.of(
                                 "npm install -g aws-cdk"   // Commands to run before build
                         ))
