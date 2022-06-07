@@ -1,4 +1,4 @@
-xxpackage info.lockhead;
+package info.lockhead;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ public class CdkPipelineStack extends Stack {
     public CdkPipelineStack(final Construct parent, final String id, final String branch, final StackProps props) {
         super(parent, id, props);
         
-        String connectionArn = "arn:aws:codestar-connections:eu-central-1:xxx:connection/yyyy-aaaaaa-bbbbbb-ccccc-zzzzzzzzzzzz";
+        String connectionArn = "arn:aws:codestar-connections:eu-central-1:916032256060:connection/12b42dad-052d-4e38-ad41-f96eccb43132";
         Artifact sourceBuildOutput = new Artifact();
         
 		//branch = "Johannes-Koch/added-india-and-argentina-1653224899205";
@@ -38,7 +38,7 @@ public class CdkPipelineStack extends Stack {
         final CodePipeline pipeline = CodePipeline.Builder.create(this, getCodepipelineName(branch))
                 .pipelineName(getCodepipelineName(branch))
                 .synth(CodeBuildStep.Builder.create("SynthStep")
-                        .input(CodePipelineSource.connection("johannes_koch/cdk-codecov-demo", branch, ConnectionSourceOptions.builder().connectionArn(connectionArn).build()))
+                        .input(CodePipelineSource.connection("lock128/cdk-codecov-demo", branch, ConnectionSourceOptions.builder().connectionArn(connectionArn).build()))
                         .installCommands(List.of(
                                 "npm install -g aws-cdk"   // Commands to run before build
                         ))
