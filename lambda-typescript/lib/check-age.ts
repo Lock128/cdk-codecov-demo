@@ -25,6 +25,12 @@ let calculateMinAge = async function (Country: string): Promise<number> {
   else if (Country=="USA") {
     return 21;
   }
+  else if (Country=="India") {
+    return 18;
+  }
+  else if (Country=="Argentina") {
+    return 18;
+  }
   console.log(`Not found country: ${Country}`);
   return -1;
 };
