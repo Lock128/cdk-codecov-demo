@@ -26,10 +26,10 @@ public class CdkPipelineStack extends Stack {
 
     public CdkPipelineStack(final Construct parent, final String id, final String branch, final StackProps props) {
         super(parent, id, props);
-        
-        String connectionArn = "arn:aws:codestar-connections:eu-central-1:916032256060:connection/12b42dad-052d-4e38-ad41-f96eccb43132";
+
+        String connectionArn = "arn:aws:codestar-connections:eu-central-1:123456:connection/1cffg-xxxxx-yyyy-yyyy-ddddff";
         Artifact sourceBuildOutput = new Artifact();
-        
+
 		//branch = "Johannes-Koch/added-india-and-argentina-1653224899205";
         //branch = "main";
         // Pipeline code goes here
@@ -49,7 +49,7 @@ public class CdkPipelineStack extends Stack {
                                 "bash start_codecov.sh"
                         )).build())
                 .build();
-        
+
         pipeline.addStage(new CheckAgeLambdaStage(this, "DeployLambdaFunction"), AddStageOpts.builder()
                 .pre(List.of(
                         ShellStep.Builder.create("Execute TypescriptTests")
@@ -62,16 +62,16 @@ public class CdkPipelineStack extends Stack {
         				.commands(List.of("cd lambda-typescript-2", "npm install", "npm test", "ls -al", "ls -al coverage", "cd ..", "ls -al lambda-typescript", "ls -al lambda-typescript-2", "bash start_codecov.sh"))
         				.build()))
         		.build());
-        
+
         pipeline.addStage(new FlutterBuildStage(this, "FlutterBuildStage"), AddStageOpts.builder()
         		.pre(List.of(
         				ShellStep.Builder.create("Execute Codecov")
         				.commands(List.of("bash start_codecov.sh"))
         				.build()))
         		.build());
-        
+
     }
-    
+
     private PipelineProject getTypescriptTestProject() {
 		PipelineProject lambdaBuild = PipelineProject.Builder.create(this, "TypeScriptLambdaTest")
 				.buildSpec(BuildSpec.fromObject(new HashMap<String, Object>() {
@@ -100,10 +100,10 @@ public class CdkPipelineStack extends Stack {
 					}
 				})).environment(BuildEnvironment.builder().buildImage(LinuxBuildImage.AMAZON_LINUX_2_3).build())
 				.build();
-		
+
 		return lambdaBuild;
 	}
-    
+
     private String getCodepipelineName(String branch) {
       String string = "CodecovPipeline"+branch.replace("-", "").replace("/", "");
       if (string.length()>50) {
